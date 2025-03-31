@@ -97,37 +97,46 @@ combination_mask = df_sorted['benefit_type'] == 'combination'
 # Create a figure with a larger size
 plt.figure(figsize=(18, 10))  # Adjusting the figure size to fit the tall subplots horizontally
 
-# Subplot 1: Net Economic Benefits of Ventilation
-plt.subplot(1, 4, 2)  # Adjusting to 1 row and 4 columns (first subplot)
-plt.title('Filtration')
-# Iterate through each row in the filtered dataframe
-for index, row in df_sorted[filtration_mask].iterrows():
-    pollutant = row['benefit_pollutant']
-    benefit_healthorprod = row['benefit_healthorprod']
-    
-    # Get the marker for the pollutant
-    marker = marker_map.get(pollutant, 'o')  # Default to 'o' if pollutant is not in map
-    color = color_map.get(pollutant, '#000000')  # Default to black if pollutant is not in map
-    
-    # Determine if the marker should be filled, hollow, or half-filled
-    fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
-    
-    if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, 
-                    edgecolors=color, facecolors=color)  # Facecolor filled
-    elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, 
-                    edgecolors=color, facecolors='none')  # Hollow (no fill)
-    elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, 
-                    edgecolors=color, facecolors=color, hatch='//')  # Hatch to simulate half-fill
+# List of subplot titles and respective masks (You can adjust as per your data structure)
+subplots_info = [
+    ('Filtration', filtration_mask), 
+    ('Ventilation', ventilation_mask), 
+    ('Source Control', sourcecontrol_mask),
+    ('Combination of Interventions', combination_mask)
+]
 
-# Formatting the plot
-plt.ylim(-250, 2200)
-plt.xticks(rotation=45, ha='right', fontsize=8)
-plt.axhline(0, color='grey', linestyle='--', linewidth=1)
-plt.ylabel('Net Benefit (USD per capita per year)', fontsize=16)
-plt.xlabel(' ')
+# Loop through each subplot
+for i, (title, mask) in enumerate(subplots_info, 1):  # Start index at 1
+    plt.subplot(1, 4, i)  # Adjusting to 1 row and 4 columns (adjust to current subplot)
+    plt.title(title)  # Set title for the subplot
 
+    # Iterate through each row in the filtered dataframe for the current mask
+    for index, row in df_sorted[mask].iterrows():
+        pollutant = row['benefit_pollutant']
+        benefit_healthorprod = row['benefit_healthorprod']
+        
+        # Get the marker for the pollutant
+        marker = marker_map.get(pollutant, 'o')  # Default to 'o' if pollutant is not in map
+        color = color_map.get(pollutant, '#000000')  # Default to black if pollutant is not in map
+        
+        # Determine if the marker should be filled, hollow, or half-filled
+        fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
+        
+        if fill_type == True:  # Filled marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7,
+                        edgecolors=color, facecolors=color)  # Facecolor filled
+        elif fill_type == False:  # Hollow marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7,
+                        edgecolors=color, facecolors='none')  # Hollow (no fill)
+        elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7,
+                        edgecolors=color, facecolors=color, hatch='//')  # Hatch to simulate half-fill
+    # Formatting the plot
+    plt.ylim(-250, 2200)
+    plt.xticks(rotation=45, ha='right', fontsize=8)
+    plt.axhline(0, color='grey', linestyle='--', linewidth=1)
+    plt.ylabel('Net Benefit (USD per capita per year)', fontsize=16)
+    plt.xlabel(' ')
 
-plt.show()
+    # Display the final plot
+    plt.show()
