@@ -88,6 +88,8 @@ def get_marker_style_and_fill(row):
     else:
         return marker, True  # Default to filled if no match
 
+# Assuming merged_df and df_sorted are already processed as per your script
+
 # Assuming df_sorted is already loaded and contains your data, we filter based on PM2.5 and PM10
 ventilation_mask = df_sorted['benefit_type'] == 'ventilation'
 filtration_mask = df_sorted['benefit_type'] == 'filtration'
@@ -98,60 +100,93 @@ pm_mask = df_sorted['benefit_pollutant'].isin(['PM2.5', 'PM10'])
 # Create a figure with two subplots side by side
 plt.figure(figsize=(18, 8))
 
+# Define the color and marker maps
+color_map = {'PM10': '#648FFF', 'PM2.5': '#FE6100'}
+marker_map = {'PM10': 'D', 'PM2.5': 'o'}
+
 # Ventilation plot
 plt.subplot(1, 2, 1)
-plt.title(r'Ventilation (PM$_{2.5}$ and PM$_{10}$)') #LaTeX formatting for subscripts
-for index, row in df_sorted[ventilation_mask & pm_mask].iterrows():
-    pollutant = row['benefit_pollutant']
-    color_map = {'PM10': '#648FFF', 'PM2.5': '#FE6100'}
-    marker_map = {'PM10': 'D', 'PM2.5': 'o'}
-    marker = marker_map.get(pollutant, 'o')  # Default to 'o' if pollutant is not in map
-    color = color_map.get(pollutant, '#000000')  # Default to black if pollutant is not in map
+plt.title(r'Ventilation (PM$_{2.5}$ and PM$_{10}$)')  # LaTeX formatting for subscripts
 
-    # Determine if the marker should be filled, hollow, or half-filled
-    fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
+# Define the legend labels for the pollutants
+for pollutant in ['PM2.5', 'PM10']:
+    label = f'{pollutant}'
+    # Create scatter plots for each pollutant type and associate with a label for the legend
+    for index, row in df_sorted[ventilation_mask & (df_sorted['benefit_pollutant'] == pollutant)].iterrows():
+        marker = marker_map.get(pollutant, 'o')  # Default to 'o' if pollutant is not in map
+        color = color_map.get(pollutant, '#000000')  # Default to black if pollutant is not in map
 
-    if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color)
-    elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors='none')
-    elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, hatch='//')
+        # Determine if the marker should be filled, hollow, or half-filled
+        fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
+
+        if fill_type == True:  # Filled marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, label=label if index == 0 else "")
+        elif fill_type == False:  # Hollow marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors='none', label=label if index == 0 else "")
+        elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, hatch='//', label=label if index == 0 else "")
 
 plt.ylim(-100, 700)
-plt.xticks(rotation=45, ha='right', fontsize=8)
+plt.xticks(rotation=45, ha='right', fontsize=10)
 plt.axhline(0, color='grey', linestyle='--', linewidth=1)
-plt.ylabel('Net Benefit (USD per capita per year)', fontsize=16)
-plt.xlabel('Citation', fontsize=12)
+plt.ylabel('Net Benefit of Intervention(USD/capita/year)', fontsize=14)
+plt.xlabel('', fontsize=12)
+
+# Add legend after plotting
+plt.legend(title='Pollutant', loc='upper left', fontsize=10)
 
 # Filtration plot
 plt.subplot(1, 2, 2)
-plt.title(r'Filtration (PM$_{2.5}$ and PM$_{10}$)') #LaTeX formatting for subscripts
-for index, row in df_sorted[filtration_mask & pm_mask].iterrows():
-    pollutant = row['benefit_pollutant']
-    color_map = {'PM10': '#648FFF', 'PM2.5': '#FE6100'}
-    marker_map = {'PM10': 'D', 'PM2.5': 'o'}
-    marker = marker_map.get(pollutant, 'o')  # Default to 'o' if pollutant is not in map
-    color = color_map.get(pollutant, '#000000')  # Default to black if pollutant is not in map
+plt.title(r'Filtration (PM$_{2.5}$ and PM$_{10}$)')  # LaTeX formatting for subscripts
 
-    # Determine if the marker should be filled, hollow, or half-filled
-    fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
+# Define the legend labels for the pollutants
+for pollutant in ['PM2.5', 'PM10']:
+    label = f'{pollutant}'
+    # Create scatter plots for each pollutant type and associate with a label for the legend
+    for index, row in df_sorted[filtration_mask & (df_sorted['benefit_pollutant'] == pollutant)].iterrows():
+        marker = marker_map.get(pollutant, 'o')  # Default to 'o' if pollutant is not in map
+        color = color_map.get(pollutant, '#000000')  # Default to black if pollutant is not in map
 
-    if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color)
-    elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors='none')
-    elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, hatch='//')
+        # Determine if the marker should be filled, hollow, or half-filled
+        fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
+
+        if fill_type == True:  # Filled marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, label=label if index == 0 else "")
+        elif fill_type == False:  # Hollow marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors='none', label=label if index == 0 else "")
+        elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, hatch='//', label=label if index == 0 else "")
 
 plt.ylim(-100, 700)
-plt.xticks(rotation=45, ha='right', fontsize=8)
+plt.xticks(rotation=45, ha='right', fontsize=10)
 plt.axhline(0, color='grey', linestyle='--', linewidth=1)
-plt.ylabel('Net Benefit (USD per capita per year)', fontsize=16)
-plt.xlabel('Citation', fontsize=12)
+plt.ylabel('', fontsize=10)
+plt.xlabel('', fontsize=12)
+
+#hide the y numbers
+plt.yticks(ticks=plt.gca().get_yticks(), labels=['']*len(plt.gca().get_yticks()))
+
+# Add legend after plotting
+plt.legend(title='Pollutant', loc='upper left', fontsize=10)
 
 # Adjust layout for better spacing between subplots
-plt.tight_layout(pad=2)
+plt.tight_layout(pad=1)
+plt.subplots_adjust(hspace=0.5, wspace=0.05)  # Customize the spacing further
+
+ax1 = plt.subplot(1, 2, 1)
+# Set the vertical spines (left and right) to grey for this subplot
+ax1.spines['left'].set_edgecolor('black')
+ax1.spines['right'].set_edgecolor('#D3D3D3')
+ax1.spines['left'].set_linewidth(1)
+ax1.spines['right'].set_linewidth(0.5)
+
+# Subplot 2: Net Economic Benefits of Filtration
+ax2 = plt.subplot(1, 2, 2)
+# Set the vertical spines (left and right) to grey for this subplot
+ax2.spines['left'].set_edgecolor('#D3D3D3')
+ax2.spines['right'].set_edgecolor('black')
+ax2.spines['left'].set_linewidth(1)
+ax2.spines['right'].set_linewidth(1)
 
 # Display the final plot
 plt.show()

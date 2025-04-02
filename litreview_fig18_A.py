@@ -119,10 +119,10 @@ for index, row in df_sorted[ventilation_mask & pm_mask].iterrows():
         plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, hatch='//')
 
 plt.ylim(-100, 700)
-plt.xticks(rotation=45, ha='right', fontsize=8)
+plt.xticks(rotation=45, ha='right', fontsize=10)
 plt.axhline(0, color='grey', linestyle='--', linewidth=1)
-plt.ylabel('Net Benefit (USD per capita per year)', fontsize=16)
-plt.xlabel('Citation', fontsize=12)
+plt.ylabel('Net Benefit (USD per capita per year)', fontsize=14)
+plt.xlabel('', fontsize=12)
 
 # Filtration plot
 plt.subplot(1, 2, 2)
@@ -145,10 +145,13 @@ for index, row in df_sorted[filtration_mask & pm_mask].iterrows():
         plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, hatch='//')
 
 plt.ylim(-100, 700)
-plt.xticks(rotation=45, ha='right', fontsize=8)
+plt.xticks(rotation=45, ha='right', fontsize=10)
 plt.axhline(0, color='grey', linestyle='--', linewidth=1)
-plt.ylabel('Net Benefit (USD per capita per year)', fontsize=16)
-plt.xlabel('Citation', fontsize=12)
+plt.ylabel('', fontsize=10)
+plt.xlabel('', fontsize=12)
+
+#hide the y numbers
+plt.yticks(ticks=plt.gca().get_yticks(), labels=['']*len(plt.gca().get_yticks()))
 
 # Adjust layout for better spacing between subplots
 plt.tight_layout(pad=2)
