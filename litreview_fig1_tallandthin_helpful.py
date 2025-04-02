@@ -20,13 +20,16 @@ med_for_2024 = df[df['year'] == '2024']['MEDFORYEAR'].iloc[0]
 df['FACTOR'] = (med_for_2024 / df['MEDFORYEAR'])
 
 # Import data collection Excel file
-df1 = pd.read_csv('lit_data.csv', encoding='latin1')
+df1 = pd.read_csv('litreview/lit_data.csv', encoding='latin1')
 
 # Keep all columns in df1 that start with "benefit_" and drop the rest of the columns
 df1 = df1.filter(regex='^benefit_')
 
 # Change column name "benefit_year" to "year" to match other CSV file
 df1.rename(columns={'benefit_year': 'year'}, inplace=True)
+
+df1.loc[df1['benefit_citation'] == 'Montgomery et al., 2015', 'benefit_country'] = 'United States'
+print(df1)
 
 # Convert year to int dtype
 df1['year'] = pd.to_numeric(df1['year'], errors='coerce', downcast='integer')
@@ -186,5 +189,6 @@ plt.legend(title='Pollutants')
 plt.xlabel(' ')
 
 # Give some room around the figure by calling tight_layout() and passing a pad value
-plt.tight_layout(pad=1)
+plt.tight_layout(pad=1.2)
+#plt.subplots_adjust(hspace=0.5, wspace=0.05)  # Customize the spacing further
 plt.show()

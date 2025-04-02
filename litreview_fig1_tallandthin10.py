@@ -20,7 +20,7 @@ med_for_2024 = df[df['year'] == '2024']['MEDFORYEAR'].iloc[0]
 df['FACTOR'] = (med_for_2024 / df['MEDFORYEAR'])
 
 # Import data collection Excel file
-df1 = pd.read_csv('lit_data.csv', encoding='latin1')
+df1 = pd.read_csv('litreview/lit_data.csv', encoding='latin1')
 
 # Keep all columns in df1 that start with "benefit_" and drop the rest of the columns
 df1 = df1.filter(regex='^benefit_')
