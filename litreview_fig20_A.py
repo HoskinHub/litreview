@@ -1,18 +1,11 @@
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
-
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-
-import matplotlib.pyplot as plt
-import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 
 # Import CPI CSV file from OneDrive
-df = pd.read_csv('/Users/zoehoskin/Library/CloudStorage/OneDrive-UniversityofToronto/zoes_project/lit_review_cba_iaq/lit_review_code/CPI USA PPP.csv', encoding='latin1')
+df = pd.read_csv('CPI USA PPP.csv')
 
 # Get median CPI per year
 df['year'] = df['DATE'].str[:4]
@@ -95,7 +88,6 @@ marker_map = {'PM10': 'D', 'PM2.5': 'o'}
 # Ventilation plot
 plt.subplot(1, 2, 1)
 plt.title(r'Ventilation (PM$_{2.5}$ and PM$_{10}$)')  # LaTeX formatting for subscripts
-
 
 # Define the color and marker maps
 color_map = {'PM10': '#648FFF', 'PM2.5': '#FE6100'}
