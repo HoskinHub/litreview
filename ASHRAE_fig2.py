@@ -32,7 +32,7 @@ plt.figure(figsize=(18, 10))  # Adjusting the figure size to fit the tall subplo
 
 # Subplot 1: Net Economic Benefits of Ventilation
 plt.subplot(1, 3, 1)  # Adjusting to 1 row and 4 columns (first subplot)
-plt.title('Ventilation')
+plt.title('Ventilation', fontsize=14)
 # Iterate through each row in the filtered dataframe
 for index, row in df_sorted[ventilation_mask].iterrows():
     pollutant = row['benefit_pollutant']
@@ -46,33 +46,29 @@ for index, row in df_sorted[ventilation_mask].iterrows():
     fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
     
     if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors=color)  # Facecolor filled
     elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors='none')  # Hollow (no fill)
     elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors='none', hatch='///////')
         # Simulate half-fill with a hatch pattern
         circle = plt.Circle((row['benefit_citation'], row['benefit_net']), 0.3, color=color, alpha=0.0, hatch='//')
         plt.gca().add_artist(circle)
     
 # Formatting the plot
-plt.ylim(-250, 2200)
-plt.xticks(rotation=45, ha='right', fontsize=8)
+plt.ylim(-150, 1700)
+plt.xticks(rotation=45, ha='right', fontsize=12)
 plt.axhline(0, color='grey', linestyle='--', linewidth=1)
 plt.ylabel('Net Benefit (USD per capita per year)', fontsize=16)
 plt.xlabel(' ')
-plt.legend(title='Pollutants')
-
-import matplotlib.pyplot as plt
-
-
 
 # Subplot 1: Net Economic Benefits of Ventilation
 plt.subplot(1, 3, 3)  # Adjusting to 1 row and 4 columns (first subplot)
-plt.title('Filtration')
+plt.title('Filtration', fontsize=14)
+
 # Iterate through each row in the filtered dataframe
 for index, row in df_sorted[filtration_mask].iterrows():
     pollutant = row['benefit_pollutant']
@@ -86,25 +82,25 @@ for index, row in df_sorted[filtration_mask].iterrows():
     fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
     
     if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors=color)  # Facecolor filled
     elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors='none')  # Hollow (no fill)
     elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors='none', hatch='///////')  # Hatch to simulate half-fill
 
 # Formatting the plot
-plt.ylim(-250, 2200)
-plt.xticks(rotation=45, ha='right', fontsize=8)
+plt.ylim(-150, 1700)
+plt.xticks(rotation=45, ha='right', fontsize=12)
 plt.axhline(0, color='grey', linestyle='--', linewidth=1)
 plt.xlabel(' ')
 
 
 # Subplot 1: Net Economic Benefits of Ventilation
 plt.subplot(1, 3, 2)  # Adjusting to 1 row and 4 columns (first subplot)
-plt.title('Combination of Interventions')
+plt.title('Combination of Interventions', fontsize=14)
 # Iterate through each row in the filtered dataframe
 for index, row in df_sorted[combination_mask].iterrows():
     pollutant = row['benefit_pollutant']
@@ -118,19 +114,19 @@ for index, row in df_sorted[combination_mask].iterrows():
     fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
     
     if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.8, linewidths=1,
                     edgecolors=color, facecolors=color)  # Facecolor filled
     elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.8, linewidths=1,
                     edgecolors=color, facecolors='none')  # Hollow (no fill)
     elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=30, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.8, linewidths=1,
                     edgecolors=color, facecolors='none', hatch='///////')  # Hatch to simulate half-fill
 
 
 # Formatting the plot
-plt.ylim(-250, 2200)
-plt.xticks(rotation=45, ha='right', fontsize=8)
+plt.ylim(-150, 1700)
+plt.xticks(rotation=45, ha='right', fontsize=12)  # Adjust the x-position slightly
 plt.axhline(0, color='grey', linestyle='--', linewidth=1)
 plt.xlabel(' ')
 
@@ -164,3 +160,6 @@ ax3.spines['right'].set_linewidth(1)
 plt.tight_layout(pad=2)
 plt.subplots_adjust(hspace=0.3, wspace=0.1)  # Adjust spacing between subplots
 plt.show()
+
+
+

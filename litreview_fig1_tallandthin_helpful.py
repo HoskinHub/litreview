@@ -6,7 +6,7 @@ import seaborn as sns
 import numpy as np
 
 # Import CPI CSV file
-df = pd.read_csv('/Users/zoehoskin/Library/CloudStorage/OneDrive-UniversityofToronto/zoes_project/lit_review_cba_iaq/lit_review_code/CPI USA PPP.csv', encoding='latin1')
+df = pd.read_csv('litreview/CPI USA PPP.csv')
 
 # Get median CPI per year
 df['year'] = df['DATE'].str[:4]
@@ -20,7 +20,7 @@ med_for_2024 = df[df['year'] == '2024']['MEDFORYEAR'].iloc[0]
 df['FACTOR'] = (med_for_2024 / df['MEDFORYEAR'])
 
 # Import data collection Excel file
-df1 = pd.read_csv('litreview/lit_data.csv', encoding='latin1')
+df1 = pd.read_csv('litreview/lit_data2.csv', encoding='latin1')
 
 # Keep all columns in df1 that start with "benefit_" and drop the rest of the columns
 df1 = df1.filter(regex='^benefit_')
