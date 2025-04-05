@@ -1,11 +1,13 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import matplotlib.lines as mlines
+import matplotlib.patches as mpatches
 
 df_sorted = pd.read_csv('litreview/litreview_cleaneddata_ASHRAE.csv')
 
 # Define a mapping of pollutants to marker shapes
-marker_map = {'PM10': 'D', 'NO2': 'X', 'DEHP': '^', 'ozone': 'p', 'PM2.5': 'o', 'multiple': 's', 'radon': 'P'}
-color_map = {'PM10': '#648FFF', 'NO2': '#FD774B', 'DEHP': '#117733', 'ozone': '#88CCEE', 'PM2.5': '#882255', 'multiple': '#FFB000', 'radon': '#88CCEE'}
+marker_map = {'PM10': 'D', 'PM2.5': 'o', 'multiple': 's'}
+color_map = {'PM10': '#648FFF', 'PM2.5': '#882255', 'multiple': '#FFB000'}
 
 def get_marker_style_and_fill(row):
     # Determine marker shape from 'benefit_pollutant'
@@ -159,6 +161,32 @@ ax3.spines['right'].set_linewidth(1)
 # Give some room around the figure by calling tight_layout() and passing a pad value
 plt.tight_layout(pad=2)
 plt.subplots_adjust(hspace=0.3, wspace=0.1)  # Adjust spacing between subplots
+
+
+# ----- Create Legend for Pollutant (Marker Shape & Color) -----
+pollutant_handles = []
+for pollutant, marker in marker_map.items():
+    # Use the corresponding color from color_map (default to black if missing)
+    color = color_map.get(pollutant, '#000000')
+    handle = mlines.Line2D([], [], color=color, marker=marker, linestyle='None',
+                           markersize=10, alpha = 0.7, label=pollutant)
+    pollutant_handles.append(handle)
+
+# ----- Create Legend for Fill Style -----
+# For "health" (filled), "performance" (hollow), and "both" (half-filled/hatch)
+filled_handle = mlines.Line2D([], [], color='black', marker='o', linestyle='None',
+                              markersize=10, markerfacecolor='black', label='Health')
+hollow_handle = mlines.Line2D([], [], color='black', marker='o', linestyle='None',
+                              markersize=10, markerfacecolor='none', markeredgewidth=1.5, label='Performance')
+# For "both", we use a patch to simulate a hashed/half-filled marker
+hashed_handle = mpatches.Patch(facecolor='white', hatch='//', edgecolor='black', label='Both')
+fill_handles = [filled_handle, hollow_handle, hashed_handle]
+
+# Add the legends to the figure
+fig = plt.gcf()
+legend1 = fig.legend(handles=pollutant_handles, title='Pollutant', loc='upper left', bbox_to_anchor=(0.88, 0.93))
+legend2 = fig.legend(handles=fill_handles, title='Fill Style', loc='upper center', bbox_to_anchor=(0.92, 0.82))
+
 plt.show()
 
 

@@ -1,59 +1,59 @@
-,benefit_citation,year,benefit_country,benefit_n,benefit_type,benefit_net,benefit_currency,benefit_healthorprod,benefit_location,benefit_pollutant,benefit_netnew
-1,"Asere et al., 2016",2016,Latvia,4,ventilation,180,,performance,combination,multiple,113.7460745
-2,"Asere et al., 2016",2016,Latvia,4,ventilation,211,,performance,combination,multiple,133.3356762
-3,"Asere et al., 2016",2016,Latvia,4,ventilation,220,,performance,combination,multiple,139.0229799
-4,"Asere et al., 2016",2016,Latvia,4,ventilation,238,,performance,combination,multiple,150.3975874
-5,"Becchio, 2019",2019,Italy,1,filtration,69,,both,office,multiple,54.74230866
-6,"Beko, 2007",2007,United States,9,filtration ,8,,both,office,PM10,12.08054248
-7,"Beko, 2007",2007,United States,9,filtration ,16,,both,office,PM10,24.16108496
-8,"Beko, 2007",2007,United States,9,filtration ,23,,both,office,PM10,34.73155962
-9,"Beko, 2007",2007,United States,9,filtration,10,,both,office,PM10,15.1006781
-10,"Beko, 2007",2007,United States,9,filtration,19,,both,office,PM10,28.69128839
-11,"Beko, 2007",2007,United States,9,filtration,28,,both,office,PM10,42.28189867
-12,"Beko, 2007",2007,United States,9,filtration,12,,both,office,PM10,18.12081372
-13,"Beko, 2007",2007,United States,9,filtration,23,,both,office,PM10,34.73155962
-14,"Beko, 2007",2007,United States,9,filtration,34,,both,office,PM10,51.34230553
-15,"Chau et al., 2008",2008,Hong Kong,1,filtration,267,,health,residential,PM10,2042.374511
-16,"Fisk et al., 2011",2011,United States,3,ventilation,4.2,,both,office,multiple,5.844088307
-17,"Fisk et al., 2011",2011,United States,3,ventilation,13.5,,both,office,multiple,18.78456956
-18,"Fisk & Chan, 2016",2016,United States,6,combination,3,,health,residential,multiple,3.912567168
-19,"Fisk & Chan, 2016",2016,United States,6,combination,9,,health,residential,multiple,11.73770151
-20,"Fisk & Chan, 2016",2016,United States,6,combination,2.5,,health,residential,multiple,3.26047264
-21,"Fisk & Chan, 2016",2016,United States,6,combination,-69,,health,residential,multiple,-89.98904487
-22,"Fisk & Chan, 2016",2016,United States,6,combination,-66,,health,residential,multiple,-86.0764777
-23,"Fisk & Chan, 2016",2016,United States,6,filtration ,-65,,health,residential,multiple,-84.77228865
-24,"Liu et al., 2021",2021,China,4,filtration ,41,,health,residential,PM2.5,188.7219228
-25,"Liu et al., 2021",2021,China,4,filtration ,35,,health,residential,PM2.5,161.1040805
-26,"Liu et al., 2021",2021,China,4,filtration ,10,,health,residential,PM2.5,46.02973727
-27,"Liu et al., 2021",2021,China,4,filtration,-32,,health,residential,PM2.5,-147.2951593
-28,"Mendell et al., 2013",2013,United States,2,ventilation,11.4,,performance,office,multiple,15.33009357
-29,"Mendell et al., 2013",2013,United States,2,ventilation,23,,performance,office,multiple,30.92913616
-30,"Milton et al., 2000",2000,United States,1,ventilation,399.5,,both,office,multiple,725.6004175
-31,"Montgomery et al., 2015",2015,International,6,ventilation,0,,both,office,PM10,0
-32,"Montgomery et al., 2015",2015,International,6,ventilation,20,,both,office,PM10,20
-33,"Montgomery et al., 2015",2015,International,6,ventilation,40,,both,office,PM10,40
-34,"Montgomery et al., 2015",2015,International,6,ventilation,130,,both,office,PM10,130
-35,"Montgomery et al., 2015",2015,International,6,ventilation,250,,both,office,PM10,250
-36,"Montgomery et al., 2015",2015,International,6,ventilation,600,,both,office,PM10,600
-37,"Seppanen & Fisk, 2004",2004,United States,1,combination,9992,USD per employee per year (NOT NET OF COSTS),both,office,multiple,16559.01731
-38,"Shum & Zhong, 2022",2022,Canada,3,ventilation,54.6,,health,office,PM2.5,67.51194911
-39,"Shum & Zhong, 2022",2022,Canada,3,ventilation,163.8,,health,office,PM2.5,202.5358473
-40,"Shum & Zhong, 2022",2022,Canada,3,ventilation,70.2,,health,office,PM2.5,86.80107743
-41,"Singh et al., 2011",2011,United States,2,combination,1188,,both,office,multiple,1653.042121
-42,"Singh et al., 2011",2011,United States,2,combination,1169,,both,office,multiple,1626.604579
-46,"Tse et al., 2004",2004,Hong Kong,2,combination,0.104539357,1943 HK$ private cost - daily for entire population,health,office,PM10,0.973985314
-47,"Tse et al., 2004",2004,Hong Kong,2,combination,0.765725236,14232 HK$ social cost - daily for entire population,health,office,PM10,7.134204341
-48,"Turcitte et al., 2014",2014,United States,1,combination,4831,,health,residential,multiple,6385.918139
-52,"Xiang et al., 2021",2021,China,2,filtration ,4.249291785,6 billion divide by 1.412 B population of China in 2021 (short-term for annual),health,multiple,PM2.5,19.55937845
-53,"Xiang et al., 2021",2021,China,2,filtration ,141.6430595,200 billion divide by 1.412 B population of China in 2021 (long-term for annual),health,multiple,PM2.5,651.9792816
-54,"Zhang et al., 2023",2023,China,5,filtration,30,,health,residential,PM2.5,112.3538262
-55,"Zhang et al., 2023",2023,China,5,filtration,30,,health,residential,PM2.5,112.3538262
-56,"Zhang et al., 2023",2023,China,5,filtration ,38,,health,residential,PM2.5,142.3148465
-57,"Zhang et al., 2023",2023,China,5,filtration,45,,health,residential,PM2.5,168.5307393
-58,"Zhang et al., 2023",2023,China,5,filtration ,30,,health,residential,PM2.5,112.3538262
-59,"Zuraimi, 2007",2007,Singapore,8,ventilation,1624,,both,residence,PM10,2118.184525
-60,"Zuraimi, 2007",2007,Singapore,8,ventilation,371,,both,residence,PM10,483.8956028
-61,"Zuraimi, 2007",2007,Singapore,8,ventilation,233,,both,residence,PM10,303.9020902
-62,"Zuraimi, 2007",2007,Singapore,8,combination,0,,both,school,PM10,0
-63,"Zuraimi, 2007",2007,Singapore,8,combination,570,,both,office,PM10,743.4514652
-64,"Zuraimi, 2007",2007,Singapore,8,combination,806,,both,combination,,1051.266458
+,benefit_citation,year,benefit_country,benefit_n,benefit_type,benefit_net,benefit_currency,benefit_healthorprod,benefit_location,benefit_pollutant,benefit_netnew,,
+1,"Asere et al., 2016",2016,Latvia,4,ventilation,180,,performance,combination,multiple,113.7460745,,
+2,"Asere et al., 2016",2016,Latvia,4,ventilation,211,,performance,combination,multiple,133.3356762,,
+3,"Asere et al., 2016",2016,Latvia,4,ventilation,220,,performance,combination,multiple,139.0229799,,
+4,"Asere et al., 2016",2016,Latvia,4,ventilation,238,,performance,combination,multiple,150.3975874,,
+5,"Becchio, 2019",2019,Italy,1,filtration,69,,both,office,multiple,54.74230866,,
+6,"Beko, 2007",2007,United States,9,filtration ,8,,both,office,PM10,12.08054248,,
+7,"Beko, 2007",2007,United States,9,filtration ,16,,both,office,PM10,24.16108496,,
+8,"Beko, 2007",2007,United States,9,filtration ,23,,both,office,PM10,34.73155962,,
+9,"Beko, 2007",2007,United States,9,filtration,10,,both,office,PM10,15.1006781,,
+10,"Beko, 2007",2007,United States,9,filtration,19,,both,office,PM10,28.69128839,,
+11,"Beko, 2007",2007,United States,9,filtration,28,,both,office,PM10,42.28189867,,
+12,"Beko, 2007",2007,United States,9,filtration,12,,both,office,PM10,18.12081372,,46.02973727
+13,"Beko, 2007",2007,United States,9,filtration,23,,both,office,PM10,34.73155962,,
+14,"Beko, 2007",2007,United States,9,filtration,34,,both,office,PM10,51.34230553,,
+15,"Chau et al., 2008",2008,Hong Kong,1,filtration,267,,health,residential,PM10,2042.374511,,
+16,"Fisk et al., 2011",2011,United States,3,ventilation,4.2,,both,office,multiple,5.844088307,,
+17,"Fisk et al., 2011",2011,United States,3,ventilation,13.5,,both,office,multiple,18.78456956,,
+18,"Fisk & Chan, 2016",2016,United States,6,combination,3,,health,residential,multiple,3.912567168,7.134204341,
+19,"Fisk & Chan, 2016",2016,United States,6,combination,9,,health,residential,multiple,11.73770151,,
+20,"Fisk & Chan, 2016",2016,United States,6,combination,2.5,,health,residential,multiple,3.26047264,,
+21,"Fisk & Chan, 2016",2016,United States,6,combination,-69,,health,residential,multiple,-89.98904487,,
+22,"Fisk & Chan, 2016",2016,United States,6,combination,-66,,health,residential,multiple,-86.0764777,,
+23,"Fisk & Chan, 2016",2016,United States,6,filtration ,-65,,health,residential,multiple,-84.77228865,,
+24,"Liu et al., 2021",2021,China,4,filtration ,41,,health,residential,PM2.5,188.7219228,,
+25,"Liu et al., 2021",2021,China,4,filtration ,35,,health,residential,PM2.5,161.1040805,,
+26,"Liu et al., 2021",2021,China,4,filtration ,10,,health,residential,PM2.5,46.02973727,,
+27,"Liu et al., 2021",2021,China,4,filtration,-32,,health,residential,PM2.5,-147.2951593,,
+28,"Mendell et al., 2013",2013,United States,2,ventilation,11.4,,performance,office,multiple,15.33009357,,
+29,"Mendell et al., 2013",2013,United States,2,ventilation,23,,performance,office,multiple,30.92913616,,
+30,"Milton et al., 2000",2000,United States,1,ventilation,399.5,,both,office,multiple,725.6004175,,
+31,"Montgomery et al., 2015",2015,International,6,ventilation,0,,both,office,PM10,0,,
+32,"Montgomery et al., 2015",2015,International,6,ventilation,20,,both,office,PM10,20,,
+33,"Montgomery et al., 2015",2015,International,6,ventilation,40,,both,office,PM10,40,,
+34,"Montgomery et al., 2015",2015,International,6,ventilation,130,,both,office,PM10,130,,
+35,"Montgomery et al., 2015",2015,International,6,ventilation,250,,both,office,PM10,250,,
+36,"Montgomery et al., 2015",2015,International,6,ventilation,600,,both,office,PM10,600,,
+37,"Seppanen & Fisk, 2004",2004,United States,1,combination,9992,USD per employee per year (NOT NET OF COSTS),both,office,multiple,16559.01731,,
+38,"Shum & Zhong, 2022",2022,Canada,3,ventilation,54.6,,health,office,PM2.5,67.51194911,,
+39,"Shum & Zhong, 2022",2022,Canada,3,ventilation,163.8,,health,office,PM2.5,202.5358473,,
+40,"Shum & Zhong, 2022",2022,Canada,3,ventilation,70.2,,health,office,PM2.5,86.80107743,,
+41,"Singh et al., 2011",2011,United States,2,combination,1188,,both,office,multiple,1653.042121,,
+42,"Singh et al., 2011",2011,United States,2,combination,1169,,both,office,multiple,1626.604579,,
+46,"Tse et al., 2004",2004,Hong Kong,2,combination,0.104539357,1943 HK$ private cost - daily for entire population,health,office,PM10,0.973985314,,
+47,"Tse et al., 2004",2004,Hong Kong,2,combination,0.765725236,14232 HK$ social cost - daily for entire population,health,office,PM10,7.134204341,,
+48,"Turcitte et al., 2014",2014,United States,1,combination,4831,,health,residential,multiple,6385.918139,,
+52,"Xiang et al., 2021",2021,China,2,filtration ,4.249291785,6 billion divide by 1.412 B population of China in 2021 (short-term for annual),health,multiple,PM2.5,19.55937845,,
+53,"Xiang et al., 2021",2021,China,2,filtration ,141.6430595,200 billion divide by 1.412 B population of China in 2021 (long-term for annual),health,multiple,PM2.5,651.9792816,,
+54,"Zhang et al., 2023",2023,China,5,filtration,30,,health,residential,PM2.5,112.3538262,,
+55,"Zhang et al., 2023",2023,China,5,filtration,30,,health,residential,PM2.5,112.3538262,,
+56,"Zhang et al., 2023",2023,China,5,filtration ,38,,health,residential,PM2.5,142.3148465,,
+57,"Zhang et al., 2023",2023,China,5,filtration,45,,health,residential,PM2.5,168.5307393,,
+58,"Zhang et al., 2023",2023,China,5,filtration ,30,,health,residential,PM2.5,112.3538262,,
+59,"Zuraimi, 2007",2007,Singapore,8,ventilation,1624,,both,residence,PM10,2118.184525,,
+60,"Zuraimi, 2007",2007,Singapore,8,ventilation,371,,both,residence,PM10,483.8956028,,
+61,"Zuraimi, 2007",2007,Singapore,8,ventilation,233,,both,residence,PM10,303.9020902,,
+62,"Zuraimi, 2007",2007,Singapore,8,combination,0,,both,school,PM10,0,,
+63,"Zuraimi, 2007",2007,Singapore,8,combination,570,,both,office,PM10,743.4514652,,
+64,"Zuraimi, 2007",2007,Singapore,8,combination,806,,both,combination,PM10,1051.266458,,
