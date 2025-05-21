@@ -3,11 +3,15 @@ import pandas as pd
 import matplotlib.lines as mlines
 import matplotlib.patches as mpatches
 
-df_sorted = pd.read_csv('litreview/litreview_cleaneddata_ASHRAE.csv')
+df_sorted = pd.read_csv('litreview_cleaneddata_ASHRAE.csv')
+
+#remove these two becuase of high net benefits
+df_sorted = df_sorted[~df_sorted['benefit_citation'].isin(['Turcitte et al., 2014', 'Seppanen & Fisk, 2004'])]
+
 
 # Define a mapping of pollutants to marker shapes
 marker_map = {'PM10': 'D', 'PM2.5': 'o', 'multiple': 's'}
-color_map = {'PM10': '#648FFF', 'PM2.5': '#882255', 'multiple': '#FFB000'}
+color_map = {'PM10': '#0072B2', 'PM2.5': '#882255', 'multiple': '#D55E00'}
 
 def get_marker_style_and_fill(row):
     # Determine marker shape from 'benefit_pollutant'
@@ -30,7 +34,7 @@ combination_mask = df_sorted['benefit_type'] == 'combination'
 
 
 # Create a figure with a larger size
-plt.figure(figsize=(18, 10))  # Adjusting the figure size to fit the tall subplots horizontally
+plt.figure(figsize=(14, 10))  # Adjusting the figure size to fit the tall subplots horizontally
 
 # Subplot 1: Net Economic Benefits of Ventilation
 plt.subplot(1, 3, 1)  # Adjusting to 1 row and 4 columns (first subplot)
@@ -48,13 +52,13 @@ for index, row in df_sorted[ventilation_mask].iterrows():
     fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
     
     if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors=color)  # Facecolor filled
     elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors='none')  # Hollow (no fill)
     elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors='none', hatch='///////')
         # Simulate half-fill with a hatch pattern
         circle = plt.Circle((row['benefit_citation'], row['benefit_net']), 0.3, color=color, alpha=0.0, hatch='//')
@@ -84,14 +88,17 @@ for index, row in df_sorted[filtration_mask].iterrows():
     fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
     
     if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors=color)  # Facecolor filled
     elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors='none')  # Hollow (no fill)
     elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=60, marker=marker, alpha=0.7, linewidths=0.8,
-                    edgecolors=color, facecolors='none', hatch='///////')  # Hatch to simulate half-fill
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
+                    edgecolors=color, facecolors='none', hatch='///////')
+        # Simulate half-fill with a hatch pattern
+        circle = plt.Circle((row['benefit_citation'], row['benefit_net']), 0.3, color=color, alpha=0.0, hatch='//')
+        plt.gca().add_artist(circle)
 
 # Formatting the plot
 plt.ylim(-150, 1700)
@@ -116,15 +123,17 @@ for index, row in df_sorted[combination_mask].iterrows():
     fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
     
     if fill_type == True:  # Filled marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.8, linewidths=1,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors=color)  # Facecolor filled
     elif fill_type == False:  # Hollow marker
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.8, linewidths=1,
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
                     edgecolors=color, facecolors='none')  # Hollow (no fill)
     elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
-        plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.8, linewidths=1,
-                    edgecolors=color, facecolors='none', hatch='///////')  # Hatch to simulate half-fill
-
+        plt.scatter(row['benefit_citation'], row['benefit_net'], s=80, marker=marker, alpha=0.7, linewidths=0.8,
+                    edgecolors=color, facecolors='none', hatch='///////')
+        # Simulate half-fill with a hatch pattern
+        circle = plt.Circle((row['benefit_citation'], row['benefit_net']), 0.3, color=color, alpha=0.0, hatch='//')
+        plt.gca().add_artist(circle)
 
 # Formatting the plot
 plt.ylim(-150, 1700)
@@ -188,6 +197,7 @@ legend1 = fig.legend(handles=pollutant_handles, title='Pollutant', loc='upper le
 legend2 = fig.legend(handles=fill_handles, title='Fill Style', loc='upper center', bbox_to_anchor=(0.92, 0.82))
 
 plt.show()
+plt.savefig('ASHRAEfig.png')
 
 
 

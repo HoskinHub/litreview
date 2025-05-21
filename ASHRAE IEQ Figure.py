@@ -1,10 +1,15 @@
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
+import matplotlib.lines as mlines
+import pandas as pd
 import numpy as np
+import seaborn as sns
+import os
 
-# Import CPI CSV file
-df = pd.read_csv('litreview/CPI USA PPP.csv')
+# Verify and load CPI CSV file
+cpi_file = 'CPI USA PPP.csv'
+if not os.path.exists(cpi_file):
+    raise FileNotFoundError(f"File not found: {cpi_file}")
+df = pd.read_csv(cpi_file)
 
 # Get median CPI per year
 df['year'] = df['DATE'].str[:4]
@@ -17,8 +22,11 @@ med_for_2024 = df[df['year'] == '2024']['MEDFORYEAR'].iloc[0]
 # Transform the 'CPIAUCSL' values for each year relative to the 2024 CPI
 df['FACTOR'] = (med_for_2024 / df['MEDFORYEAR'])
 
-# Import data collection Excel file
-df1 = pd.read_csv('litreview/lit_review_manual_data_ASHRAE.csv', encoding='latin1')
+# Verify and load data collection Excel file
+data_file = 'lit_review_manual_data_ASHRAE.csv'
+if not os.path.exists(data_file):
+    raise FileNotFoundError(f"File not found: {data_file}")
+df1 = pd.read_csv(data_file, encoding='latin1')
 
 # Keep all columns in df1 that start with "benefit_" and drop the rest of the columns
 df1 = df1.filter(regex='^benefit_')
@@ -33,8 +41,13 @@ df['year'] = pd.to_numeric(df['year'], errors='coerce', downcast='integer')
 # Merge the two DataFrames on the 'year' column
 merged_df = pd.merge(df1, df[['year', 'FACTOR']], on='year', how='left')
 
+# Verify and load PPP data file
+ppp_file = '/Users/zoehoskin/Library/CloudStorage/OneDrive-UniversityofToronto/zoes_project/lit_review_cba_iaq/lit_review_code/PPP.csv'
+if not os.path.exists(ppp_file):
+    raise FileNotFoundError(f"File not found: {ppp_file}")
+df2 = pd.read_csv(ppp_file)
+
 # Merge with PPP data
-df2 = pd.read_csv('litreview/PPP.csv')
 merged_df = pd.merge(merged_df, df2, left_on='benefit_country', right_on='Country Name', how='left')
 
 # Ensure that the year values in df are valid and aligned with the column names in df2
@@ -60,7 +73,119 @@ merged_df['netnew'] = merged_df['combinedfactor'] * merged_df['benefit_net']
 # Print the result to check
 print(merged_df.tail(100))
 
-merged_df = merged_df.drop_duplicates()
-merged_df = merged_df.reset_index(drop=True)
+merged_df.to_csv('litreview_cleaneddata.csv')
 
-merged_df.to_csv('litreview/litreview_cleaneddata_ASHRAE.csv')
+# Verify and load cleaned data file
+cleaned_data_file = 'litreview_cleaneddata.csv'
+if not os.path.exists(cleaned_data_file):
+    raise FileNotFoundError(f"File not found: {cleaned_data_file}")
+df = pd.read_csv(cleaned_data_file)
+
+# Remove rows where 'benefit_citation' equals 'Zuraimi et al., 2007'
+df = df[df['benefit_citation'] != 'Zuraimi, 2007']
+
+df_sorted = df
+
+# Assuming df_sorted is already loaded and contains your data, we filter based on PM2.5 and PM10
+ventilation_mask = df_sorted['benefit_type'] == 'ventilation'
+filtration_mask = df_sorted['benefit_type'] == 'filtration'
+
+# Filter the data to include only PM2.5 and PM10 pollutants
+pm_mask = df_sorted['benefit_pollutant'].isin(['PM2.5', 'PM10'])
+
+plt.figure(figsize=(18, 8))
+
+# Define the color and marker maps
+color_map = {'PM10': '#648FFF', 'PM2.5': '#FE6100'}
+marker_map = {'PM10': 'D', 'PM2.5': 'o'}
+
+# Ventilation plot
+plt.subplot(1, 2, 1)
+plt.title(r'Ventilation (PM$_{2.5}$ and PM$_{10}$)')  # LaTeX formatting for subscripts
+
+# Define the color and marker maps
+color_map = {'PM10': '#648FFF', 'PM2.5': '#FE6100'}
+marker_map = {'PM10': 'D', 'PM2.5': 'o'}
+
+# Initialize a list for legend handles and labels
+handles = []
+labels = []
+
+# Ventilation plot
+plt.subplot(1, 2, 1)
+plt.title(r'Ventilation (PM$_{2.5}$ and PM$_{10}$)')  # LaTeX formatting for subscripts
+
+# Define the legend labels for the pollutants
+for pollutant in ['PM2.5', 'PM10']:
+    label = f'{pollutant}'
+    # Create scatter plots for each pollutant type and associate with a label for the legend
+    for index, row in df_sorted[ventilation_mask & (df_sorted['benefit_pollutant'] == pollutant)].iterrows():
+        marker = marker_map.get(pollutant, 'o')  # Default to 'o' if pollutant is not in map
+        color = color_map.get(pollutant, '#000000')  # Default to black if pollutant is not in map
+
+        # Determine if the marker should be filled, hollow, or half-filled
+        fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
+
+        # Create scatter plot based on marker type
+        if fill_type == True:  # Filled marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color)
+        elif fill_type == False:  # Hollow marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors='none')
+        elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, hatch='//')
+
+    # Add a custom legend handle for this pollutant if not already added
+    if label not in labels:
+        handle = mlines.Line2D([], [], marker=marker_map[pollutant], color='w', markerfacecolor=color_map[pollutant], markersize=10, label=label)
+        handles.append(handle)
+        labels.append(label)
+
+plt.ylim(-100, 700)
+plt.xticks(rotation=45, ha='right', fontsize=10)
+plt.axhline(0, color='grey', linestyle='--', linewidth=1)
+plt.ylabel('Net Benefit of Intervention(USD/capita/year)', fontsize=14)
+plt.xlabel('', fontsize=12)
+
+# Add legend after plotting
+plt.legend(handles=handles, labels=labels, title='Pollutant', loc='upper left', fontsize=10)
+
+# Filtration plot (same for filtration plot, apply similar logic)
+plt.subplot(1, 2, 2)
+plt.title(r'Filtration (PM$_{2.5}$ and PM$_{10}$)')  # LaTeX formatting for subscripts
+
+# Define the legend labels for the pollutants
+for pollutant in ['PM2.5', 'PM10']:
+    label = f'{pollutant}'
+    # Create scatter plots for each pollutant type and associate with a label for the legend
+    for index, row in df_sorted[filtration_mask & (df_sorted['benefit_pollutant'] == pollutant)].iterrows():
+        marker = marker_map.get(pollutant, 'o')  # Default to 'o' if pollutant is not in map
+        color = color_map.get(pollutant, '#000000')  # Default to black if pollutant is not in map
+
+        # Determine if the marker should be filled, hollow, or half-filled
+        fill_type = get_marker_style_and_fill(row)[1]  # 'True' for filled, 'False' for hollow, 'half' for hatch
+
+        # Create scatter plot based on marker type
+        if fill_type == True:  # Filled marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color)
+        elif fill_type == False:  # Hollow marker
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors='none')
+        elif fill_type == 'half':  # Half-filled marker (simulating with hatch)
+            plt.scatter(row['benefit_citation'], row['benefit_net'], s=50, marker=marker, alpha=0.7, edgecolors=color, facecolors=color, hatch='//')
+
+    # Add a custom legend handle for this pollutant if not already added
+    if label not in labels:
+        handle = mlines.Line2D([], [], marker=marker_map[pollutant], color='w', markerfacecolor=color_map[pollutant], markersize=10, label=label)
+        handles.append(handle)
+        labels.append(label)
+
+plt.ylim(-100, 700)
+plt.xticks(rotation=45, ha='right', fontsize=10)
+plt.axhline(0, color='grey', linestyle='--', linewidth=1)
+plt.ylabel('', fontsize=10)
+plt.xlabel('', fontsize=12)
+
+plt.yticks(ticks=plt.gca().get_yticks(), labels=['']*len(plt.gca().get_yticks()))
+plt.legend(handles=handles, labels=labels, title='Pollutant', loc='upper left', fontsize=10)
+plt.tight_layout(pad=1)
+plt.subplots_adjust(hspace=0.5, wspace=0.05)
+plt.show()
