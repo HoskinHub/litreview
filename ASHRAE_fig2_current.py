@@ -191,13 +191,15 @@ hollow_handle = mlines.Line2D([], [], color='black', marker='o', linestyle='None
 hashed_handle = mpatches.Patch(facecolor='white', hatch='//', edgecolor='black', label='Both')
 fill_handles = [filled_handle, hollow_handle, hashed_handle]
 
-# Add the legends to the figure
+#legends
 fig = plt.gcf()
 legend1 = fig.legend(handles=pollutant_handles, title='Pollutant', loc='upper left', bbox_to_anchor=(0.88, 0.93))
 legend2 = fig.legend(handles=fill_handles, title='Fill Style', loc='upper center', bbox_to_anchor=(0.92, 0.82))
 
+#save fig BEFORE plt.show()
+plt.savefig('ASHRAEfig.png', dpi=300, bbox_inches='tight')  # added dpi for sharper image
+
 plt.show()
-plt.savefig('ASHRAEfig.png')
 
 
 
