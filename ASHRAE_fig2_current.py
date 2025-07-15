@@ -197,7 +197,7 @@ legend1 = fig.legend(handles=pollutant_handles, title='Pollutant', loc='upper le
 legend2 = fig.legend(handles=fill_handles, title='Fill Style', loc='upper center', bbox_to_anchor=(0.92, 0.82))
 
 #save fig BEFORE plt.show()
-plt.savefig('ASHRAEfig.png', dpi=300, bbox_inches='tight')  # added dpi for sharper image
+plt.savefig('ASHRAEfig.png', dpi=600, bbox_inches='tight')  # added dpi for sharper image
 
 plt.show()
 
